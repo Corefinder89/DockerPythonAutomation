@@ -13,4 +13,4 @@ A containerized platform to run your tests in python headless using `firefox` `c
 3. Last but not the least you need to execute the docker container to execute all your tests using the command `docker run --name <container name> <image name>`.<br>
 
 <h3>P.S</h3>
-I have written a small python automation code which is added to the `Python-Automation-Project` directory. You can build the corresponding dockerfile and execute it to understand the flow and then get started with your automation.
+I have written a small python automation code which is added to the <b>Python-Automation-Project</b> directory. You can build the corresponding dockerfile and execute it to understand the flow and then get started with your automation.
