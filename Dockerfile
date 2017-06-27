@@ -3,7 +3,7 @@
 # 2. Pip packgaes like pyvirtualdisplay, Selenium 3.3.3
 # 3. npm packages like chromedriver and geckodriver
 # 4. phantomjs binary
-# 5. google chrome browser, firefox browser
+# 5. google chrome headless browser, firefox browser
 # 6. Xvfb and xserver-xephyr
 
 # N.B: pyvirtualdisplay will act as a python wrapper for Xvfb
@@ -35,9 +35,10 @@ RUN pip install -U selenium
 # Install google-chrome packages and dependencies
 RUN apt-get install -y libxss1 libappindicator1 libindicator7 libasound2 libgconf-2-4 libnspr4 libnss3 libpango1.0-0 fonts-liberation xdg-utils
 WORKDIR Downloads
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN dpkg -i google-chrome*.deb
-RUN apt-get -f install
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+RUN sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+RUN apt-get update
+RUN apt-get install google-chrome-stable
 
 # Install firefox browser
 RUN apt-get install -y firefox
