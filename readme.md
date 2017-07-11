@@ -12,5 +12,7 @@ A containerized platform to run your tests in python headless using `firefox` `c
 2. Once the image is present in your local system you need to build the corresponding `Dockerfile` to get the dependencies and packages in your container. The command to build your docker image would be `docker build -t <tagname_image> corefinder/pyconauto .`.<br>
 3. Last but not the least you need to execute the docker container to execute all your tests using the command `docker run --name <container name> corefinder/pyconauto`.<br>
 
-<h3>P.S</h3>
+# P.S
 I have written a small python automation code which is added to the <b>Python-Automation-Project</b> directory. You can build the corresponding dockerfile and execute it to understand the flow and then get started with your automation. By default I am executing the test in Firefox using the fecko driver. The selenium version installed is the latest version - 3.3.3, so geckodriver and chromedriver has to be configure seperately.
+<br>
+Please give a thumbs up if the module helps you out in running your selenium tests on docker seamlessly. Please leave your comment as a feedback, so that I can fine tune the container module as per requirements.
