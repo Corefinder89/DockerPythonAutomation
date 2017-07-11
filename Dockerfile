@@ -35,8 +35,8 @@ RUN pip install -U selenium
 # Install google-chrome packages and dependencies
 RUN apt-get install -y libxss1 libappindicator1 libindicator7 libasound2 libgconf-2-4 libnspr4 libnss3 libpango1.0-0 fonts-liberation xdg-utils
 WORKDIR Downloads
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-RUN sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 RUN apt-get update
 RUN apt-get install google-chrome-stable
 
@@ -50,11 +50,11 @@ RUN npm install -g n
 RUN n stable
 
 # Install chromedriver
-RUN npm install -g chromedriver
+RUN sudo npm install -g chromedriver --chromedriver_version=LATEST
 RUN which chromedriver
 
 # Install geckodriver
-RUN npm install -g geckodriver
+RUN sudo npm install -g geckodriver
 RUN which geckodriver
 
 # Install phantomjs and its dependencies
