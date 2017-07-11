@@ -50,12 +50,23 @@ RUN npm install -g n
 RUN n stable
 
 # Install chromedriver
-RUN sudo npm install -g chromedriver --chromedriver_version=LATEST
+RUN apt-get install -y curl
+RUN apt-get install -y unzip
+RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
+    mkdir -p /opt/chromedriver-$CHROMEDRIVER_VERSION && \
+    curl -sS -o /tmp/chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip && \
+    unzip -qq /tmp/chromedriver_linux64.zip -d /opt/chromedriver-$CHROMEDRIVER_VERSION && \
+    rm /tmp/chromedriver_linux64.zip && \
+    chmod +x /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver && \
+    ln -fs /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver /usr/local/bin/chromedriver
 RUN which chromedriver
-
-# Install geckodriver
-RUN sudo npm install -g geckodriver
-RUN which geckodriver
+RUN export BASE_URL=https://github.com/mozilla/geckodriver/releases/download \
+    && export VERSION=$(curl -sL \
+    https://api.github.com/repos/mozilla/geckodriver/releases/latest | \
+    grep tag_name | cut -d '"' -f 4) \
+    && curl -sL \
+    $BASE_URL/$VERSION/geckodriver-$VERSION-linux64.tar.gz | tar -xz \
+    && mv geckodriver /usr/local/bin/geckodriver
 
 # Install phantomjs and its dependencies
 RUN apt-get install libfreetype6 libfreetype6-dev
