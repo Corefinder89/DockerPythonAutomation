@@ -49,7 +49,7 @@ RUN npm cache clean -f
 RUN npm install -g n
 RUN n stable
 
-# Install chromedriver
+# Install chromedriver and geckodriver with the required dependencies
 RUN apt-get install -y curl
 RUN apt-get install -y unzip
 RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
@@ -67,6 +67,7 @@ RUN export BASE_URL=https://github.com/mozilla/geckodriver/releases/download \
     && curl -sL \
     $BASE_URL/$VERSION/geckodriver-$VERSION-linux64.tar.gz | tar -xz \
     && mv geckodriver /usr/local/bin/geckodriver
+RUN which geckodriver
 
 # Install phantomjs and its dependencies
 RUN apt-get install libfreetype6 libfreetype6-dev
